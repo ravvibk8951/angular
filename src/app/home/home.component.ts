@@ -12,21 +12,20 @@ import { LeaderService } from '../services/leader.service';
 })
 export class HomeComponent implements OnInit {
 
-  dish: Dish;
-  promotion: Promotion;
-  leader:Leader;
+  dishes: Dish[];
+  promotions: Promotion[];
+  leaders:Leader[];
 
-  constructor(private dishservice: DishService,
-    private promotionservice: PromotionService,
-  private leaderservice : LeaderService) { }
+  constructor(private dishService: DishService,
+    private promotionService: PromotionService,
+  private leaderService : LeaderService) { }
 
   ngOnInit() {
-     this.dishservice.getFeaturedDish()
-     .then(dish => this.dish = dish);
-     this.promotionservice.getFeaturedPromotion()
-     .then(promotion=> this.promotion = promotion);
-    this.leaderservice.getFeaturedLeader()
-    .then(leader=> this.leader = leader);
+    this.dishService.getDishes().subscribe(dishes => this.dishes = dishes);
+    this.leaderService.getLeaders().subscribe(leaders => this.leaders = leaders);
+    this.promotionService.getPromotions().subscribe(promotions => this.promotions = promotions);
+
+
   }
 
 }
